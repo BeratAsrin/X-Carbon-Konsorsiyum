@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 30 Ağu 2021, 18:13:05
+-- Üretim Zamanı: 30 Ağu 2021, 23:03:26
 -- Sunucu sürümü: 10.4.20-MariaDB
 -- PHP Sürümü: 8.0.9
 
@@ -44,7 +44,30 @@ INSERT INTO `companies` (`id`, `organization_name`, `tax_number`, `mail`) VALUES
 (3, 'company', '456', 'deneme@gmail.com'),
 (4, 'company2', '456', 'deneme@gmail.com'),
 (5, 'company3', '456', 'deneme@gmail.com'),
-(6, 'company4', '456', 'deneme@gmail.com');
+(6, 'company4', '456', 'deneme@gmail.com'),
+(7, 'deneme10', '123', 'deneme@gmail.com'),
+(8, 'deneme11', '123', 'deneme@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `individuals`
+--
+
+CREATE TABLE `individuals` (
+  `tckn` bigint(11) NOT NULL,
+  `name` text NOT NULL,
+  `surname` text NOT NULL,
+  `mail` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Tablo döküm verisi `individuals`
+--
+
+INSERT INTO `individuals` (`tckn`, `name`, `surname`, `mail`) VALUES
+(11111111111, 'Deneme2', 'Deneme2', '---@gmail.com'),
+(99999999999, 'Deneme', 'Deneme', '---@gmail.com');
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -57,6 +80,12 @@ ALTER TABLE `companies`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Tablo için indeksler `individuals`
+--
+ALTER TABLE `individuals`
+  ADD PRIMARY KEY (`tckn`);
+
+--
 -- Dökümü yapılmış tablolar için AUTO_INCREMENT değeri
 --
 
@@ -64,7 +93,7 @@ ALTER TABLE `companies`
 -- Tablo için AUTO_INCREMENT değeri `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

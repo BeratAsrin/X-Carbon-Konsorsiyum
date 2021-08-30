@@ -1,6 +1,8 @@
 package com.project.hibernate;
 
 import com.project.information.Company;
+import com.project.information.Individual;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -31,16 +33,16 @@ public class HibernateOperations {
         closeSessionFactory();
     }
 
-    public static Object getObjectById(Object object, int id){
+    public static Object getObjectById(Object object, Long primaryKey){
         initSessionFactory(object);
-        Object result = session.get(object.getClass(),id);
+        Object result = session.get(object.getClass(), primaryKey.longValue());
         closeSessionFactory();
         return result;
     }
 
-    public static void deleteObjectById(Object object, int id){
+    public static void deleteObjectById(Object object, Long primaryKey){
         initSessionFactory(object);
-        Object toRemove = session.get(object.getClass(), id);
+        Object toRemove = session.get(object.getClass(), primaryKey.longValue());
         session.delete(toRemove);
         session.getTransaction().commit();
         closeSessionFactory();
@@ -52,7 +54,9 @@ public class HibernateOperations {
         if(object.getClass() == Company.class){
             data = session.createQuery("from Company").list();
         }
-        
+        else if(object.getClass() == Individual.class){
+            data = session.createQuery("from Individual").list();
+        }
         closeSessionFactory();
         return data;
     }

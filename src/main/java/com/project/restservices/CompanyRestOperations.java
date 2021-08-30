@@ -11,14 +11,14 @@ import java.util.List;
 public class CompanyRestOperations {
 
     @PostMapping("/register")
-    private void addNewCompany(@RequestBody Company company){
+    private void registerCompany(@RequestBody Company company){
         HibernateOperations.addNewObject(company);
     }
 
     @GetMapping("/get/{id}")
-    private Company getCompanyById(@PathVariable Integer id){
+    private Company getCompanyById(@PathVariable Long id){
         // TODO EĞER ID YOK İSE NULL DONDURUYOR TRY CATCH YAP
-        return (Company) HibernateOperations.getObjectById(new Company(), id.intValue());
+        return (Company) HibernateOperations.getObjectById(new Company(), id);
     }
 
     @GetMapping("/getall")
@@ -27,8 +27,8 @@ public class CompanyRestOperations {
     }
 
     @PostMapping("/delete/{id}")
-    private void deleteCompanyById(@PathVariable Integer id){
-        HibernateOperations.deleteObjectById(new Company(), id.intValue());
+    private void deleteCompanyById(@PathVariable Long id){
+        HibernateOperations.deleteObjectById(new Company(), id);
     }
 
 }
