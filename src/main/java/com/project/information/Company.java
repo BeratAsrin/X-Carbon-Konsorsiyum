@@ -10,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "companies")
 public class Company {
+    // TODO KAYIT TARIHI ALMAYI UNUTMA
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

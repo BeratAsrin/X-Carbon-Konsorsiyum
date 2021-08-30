@@ -4,6 +4,8 @@ import com.project.hibernate.HibernateOperations;
 import com.project.information.Company;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/company")
 public class CompanyRestOperations {
@@ -19,10 +21,14 @@ public class CompanyRestOperations {
         return (Company) HibernateOperations.getObjectById(new Company(), id.intValue());
     }
 
-    @PostMapping("/delete/{id}")
-    private void deleteCompanyById(@PathVariable Integer id){
-        
+    @GetMapping("/getall")
+    private List<?> getAllCompanies(){
+        return HibernateOperations.getAll(new Company());
     }
 
+    @PostMapping("/delete/{id}")
+    private void deleteCompanyById(@PathVariable Integer id){
+        HibernateOperations.deleteObjectById(new Company(), id.intValue());
+    }
 
 }
