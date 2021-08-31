@@ -26,4 +26,5 @@ public class FakeBank {
         this.ownerId = ownerId;
         this.money = money;
     }
+
 }

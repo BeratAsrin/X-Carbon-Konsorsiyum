@@ -30,6 +30,7 @@ public class CompanyRestOperations {
 
     @DeleteMapping ("/delete/{id}")
     private void deleteCompanyById(@PathVariable Integer id){
+        HibernateOperations.deleteBankAccount(new FakeBank(), id);
         HibernateOperations.deleteObjectById(new Company(), id);
     }
 

@@ -26,9 +26,14 @@ public class Company {
     @Column(name = "mail")
     private String mail;
 
-    public Company(String organizationName, String taxNumber, String mail) {
+    @Column(name = "register_type")
+    private String registerType; // Producer || Trader
+
+    public Company(String organizationName, String taxNumber, String mail, String registerType) {
         this.organizationName = organizationName;
         this.taxNumber = taxNumber;
         this.mail = mail;
+        this.registerType = registerType;
     }
+
 }

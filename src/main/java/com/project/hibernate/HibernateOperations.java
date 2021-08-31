@@ -2,6 +2,7 @@ package com.project.hibernate;
 
 import com.project.information.Company;
 
+import com.project.information.FakeBank;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -56,7 +57,16 @@ public class HibernateOperations {
         return data;
     }
 
-    /*
+    public static void deleteBankAccount(FakeBank fakeBank, Integer id) {
+        initSessionFactory(fakeBank);
+        FakeBank toRemove = (FakeBank) session.createQuery(String.format("from FakeBank s where s.ownerId = %s",id))
+                .uniqueResult();
+        session.delete(toRemove);
+        session.getTransaction().commit();
+        closeSessionFactory();
+    }
+
+    /* Deprecated
     public static int getLastId(Object object){
         initSessionFactory(object);
         Object temp = null;
