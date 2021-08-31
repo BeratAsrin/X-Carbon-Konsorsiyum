@@ -1,6 +1,7 @@
 package com.project.information;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,12 +11,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "companies")
 public class Company {
-    // TODO KAYIT TARIHI ALMAYI UNUTMA
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private int id;
 
     @Column(name = "organization_name")
     private String organizationName;

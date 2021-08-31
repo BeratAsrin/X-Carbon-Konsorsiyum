@@ -1,7 +1,6 @@
 package com.project.hibernate;
 
 import com.project.information.Company;
-import com.project.information.Individual;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -32,16 +31,16 @@ public class HibernateOperations {
         closeSessionFactory();
     }
 
-    public static Object getObjectById(Object object, Long primaryKey){
+    public static Object getObjectById(Object object, Integer primaryKey){
         initSessionFactory(object);
-        Object result = session.get(object.getClass(), primaryKey.longValue());
+        Object result = session.get(object.getClass(), primaryKey.intValue());
         closeSessionFactory();
         return result;
     }
 
-    public static void deleteObjectById(Object object, Long primaryKey){
+    public static void deleteObjectById(Object object, Integer primaryKey){
         initSessionFactory(object);
-        Object toRemove = session.get(object.getClass(), primaryKey.longValue());
+        Object toRemove = session.get(object.getClass(), primaryKey.intValue());
         session.delete(toRemove);
         session.getTransaction().commit();
         closeSessionFactory();
@@ -53,10 +52,19 @@ public class HibernateOperations {
         if(object.getClass() == Company.class){
             data = session.createQuery("from Company").list();
         }
-        else if(object.getClass() == Individual.class){
-            data = session.createQuery("from Individual").list();
-        }
         closeSessionFactory();
         return data;
+    }
+
+    public static int getLastId(Object object){
+        initSessionFactory(object);
+        Object temp = null;
+        int last = 0;
+        if(object.getClass() == Company.class){
+            temp = session.createQuery("from Company ORDER BY id DESC").setMaxResults(1).uniqueResult();
+            last = ((Company)temp).getId();
+        }
+        closeSessionFactory();
+        return last;
     }
 }
