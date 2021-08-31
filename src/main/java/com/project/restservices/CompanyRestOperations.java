@@ -14,14 +14,12 @@ public class CompanyRestOperations {
     @CrossOrigin
     @PostMapping("/register")
     private void registerCompany(@RequestBody Company company){
-        int lastPrimaryKey = HibernateOperations.getLastId(new Company());
-        HibernateOperations.addNewObject(new FakeBank(lastPrimaryKey+1,1000));
         HibernateOperations.addNewObject(company);
+        HibernateOperations.addNewObject(new FakeBank(company.getId(),1000));
     }
 
     @GetMapping("/get/{id}")
     private Company getCompanyById(@PathVariable Integer id){
-        HibernateOperations.getLastId(new Company());
         return (Company) HibernateOperations.getObjectById(new Company(), id);
     }
 

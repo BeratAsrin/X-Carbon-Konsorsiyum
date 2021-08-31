@@ -56,15 +56,21 @@ public class HibernateOperations {
         return data;
     }
 
+    /*
     public static int getLastId(Object object){
         initSessionFactory(object);
         Object temp = null;
         int last = 0;
         if(object.getClass() == Company.class){
-            temp = session.createQuery("from Company ORDER BY id DESC").setMaxResults(1).uniqueResult();
-            last = ((Company)temp).getId();
+            try{
+                temp = session.createQuery("from Company ORDER BY id DESC").setMaxResults(1).uniqueResult();
+                last = ((Company)temp).getId();
+            }catch (NullPointerException error){
+                last = 0; // !!! Last remains zero.
+            }
         }
         closeSessionFactory();
         return last;
     }
+    */
 }
