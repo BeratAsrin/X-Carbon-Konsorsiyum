@@ -9,7 +9,6 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-
 public class HibernateOperations {
 
     private static SessionFactory factory;
