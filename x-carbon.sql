@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 01 Eyl 2021, 22:13:57
+-- Üretim Zamanı: 02 Eyl 2021, 00:05:43
 -- Sunucu sürümü: 10.4.20-MariaDB
 -- PHP Sürümü: 8.0.9
 
@@ -38,6 +38,16 @@ CREATE TABLE `certificates` (
   `expiration_year` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Tablo döküm verisi `certificates`
+--
+
+INSERT INTO `certificates` (`tuple_start_id`, `tuple_finish_id`, `owner_id`, `number_of_certificates`, `register_month`, `register_year`, `expiration_month`, `expiration_year`) VALUES
+(1, 20, 1, 20, 9, 2021, 9, 2022),
+(21, 165, 1, 145, 9, 2021, 9, 2022),
+(166, 265, 1, 100, 9, 2021, 9, 2022),
+(266, 266, 1, 1, 9, 2021, 9, 2022);
+
 -- --------------------------------------------------------
 
 --
@@ -57,7 +67,7 @@ CREATE TABLE `companies` (
 --
 
 INSERT INTO `companies` (`id`, `organization_name`, `tax_number`, `mail`, `register_type`) VALUES
-(1, 'deneme aş', '111111', 'deneme@gmail.com', 'Producer');
+(1, 'company', '456', 'deneme@gmail.com', 'Producer');
 
 -- --------------------------------------------------------
 
