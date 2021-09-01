@@ -37,3 +37,12 @@ public class Company {
     }
 
 }
+
+/*
+    {
+        "organizationName":"company",
+        "taxNumber":"456",
+        "mail":"deneme@gmail.com",
+        "registerType": "Producer"
+    }
+ */

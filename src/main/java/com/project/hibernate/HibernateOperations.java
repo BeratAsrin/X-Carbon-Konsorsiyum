@@ -1,5 +1,6 @@
 package com.project.hibernate;
 
+import com.project.information.Certificate;
 import com.project.information.Company;
 
 import com.project.information.FakeBank;
@@ -64,6 +65,25 @@ public class HibernateOperations {
         session.delete(toRemove);
         session.getTransaction().commit();
         closeSessionFactory();
+    }
+
+    public static long getLastFinishId(Certificate certificate){
+        initSessionFactory(certificate);
+        Certificate temp = (Certificate) session.createQuery("from Certificate ORDER BY tuple_finish_id DESC").setMaxResults(1).uniqueResult();
+        closeSessionFactory();
+        return temp.getTuppleFinishId();
+    }
+
+    public static String isTableEmpty(Object object){
+        List<?> list = null;
+        String toReturn = "ERROR";
+        initSessionFactory(object);
+        if(object.getClass() == Certificate.class){
+            list = session.createQuery("from Certificate").list();
+            toReturn = list.size() == 0 ? "EMPTY" : "NOT_EMPTY";
+        }
+        closeSessionFactory();
+        return toReturn;
     }
 
     /* Deprecated

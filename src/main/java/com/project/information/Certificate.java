@@ -5,14 +5,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
+@IdClass(CompositeKey.class)
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "certificates")
 public class Certificate {
 
-    // sıradaki için tuple_finish_id'ye 1 eklenecek
     @Id
     @Column(name = "tuple_start_id")
     private long tuppleStartId;
@@ -22,7 +24,7 @@ public class Certificate {
     private long tuppleFinishId;
 
     @Column(name = "owner_id")
-    private long ownerId;
+    private int ownerId;
 
     @Column(name = "number_of_certificates")
     private long numberOfCertificates;
@@ -39,9 +41,12 @@ public class Certificate {
     @Column(name = "expiration_year")
     private int expirationYear;
 
-    public Certificate(long ownerId, long numberOfCertificates) {
-        this.ownerId = ownerId;
-        this.numberOfCertificates = numberOfCertificates;
-    }
+}
+
+// TODO https://stackoverflow.com/questions/41143913/sql-jpa-multiple-columns-as-primary-key
+class CompositeKey implements Serializable {
+
+    private long tuppleStartId;
+    private long tuppleFinishId;
 
 }

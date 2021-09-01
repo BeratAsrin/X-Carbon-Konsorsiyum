@@ -1,5 +1,7 @@
 package com.project.xcarbon;
 
+import com.project.hibernate.HibernateOperations;
+import com.project.information.Certificate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
