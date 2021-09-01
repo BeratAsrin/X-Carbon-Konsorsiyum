@@ -12,7 +12,8 @@ public class CertificateRestOperations {
 
     @PostMapping("/create")
     private void createNewCertificate(@RequestBody Certificate certificate){
-        
+
     }
+
 
 }

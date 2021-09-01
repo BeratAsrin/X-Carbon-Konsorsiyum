@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "certificates")
 public class Certificate {
 
@@ -25,6 +24,9 @@ public class Certificate {
     @Column(name = "owner_id")
     private long ownerId;
 
+    @Column(name = "number_of_certificates")
+    private long numberOfCertificates;
+
     @Column(name = "register_month")
     private int registerMonth;
 
@@ -36,5 +38,10 @@ public class Certificate {
 
     @Column(name = "expiration_year")
     private int expirationYear;
+
+    public Certificate(long ownerId, long numberOfCertificates) {
+        this.ownerId = ownerId;
+        this.numberOfCertificates = numberOfCertificates;
+    }
 
 }

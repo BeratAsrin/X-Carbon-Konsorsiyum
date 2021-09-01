@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 30 Ağu 2021, 23:03:26
+-- Üretim Zamanı: 01 Eyl 2021, 22:13:57
 -- Sunucu sürümü: 10.4.20-MariaDB
 -- PHP Sürümü: 8.0.9
 
@@ -24,6 +24,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Tablo için tablo yapısı `certificates`
+--
+
+CREATE TABLE `certificates` (
+  `tuple_start_id` bigint(20) NOT NULL,
+  `tuple_finish_id` bigint(20) NOT NULL,
+  `owner_id` int(11) NOT NULL,
+  `number_of_certificates` int(11) NOT NULL,
+  `register_month` int(11) NOT NULL,
+  `register_year` int(11) NOT NULL,
+  `expiration_month` int(11) NOT NULL,
+  `expiration_year` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Tablo için tablo yapısı `companies`
 --
 
@@ -31,47 +48,45 @@ CREATE TABLE `companies` (
   `id` int(11) NOT NULL,
   `organization_name` text NOT NULL,
   `tax_number` text NOT NULL,
-  `mail` text NOT NULL
+  `mail` text NOT NULL,
+  `register_type` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Tablo döküm verisi `companies`
 --
 
-INSERT INTO `companies` (`id`, `organization_name`, `tax_number`, `mail`) VALUES
-(1, 'deneme', '123', 'deneme@gmail.com'),
-(2, 'deneme2', '456', 'deneme@gmail.com'),
-(3, 'company', '456', 'deneme@gmail.com'),
-(4, 'company2', '456', 'deneme@gmail.com'),
-(5, 'company3', '456', 'deneme@gmail.com'),
-(6, 'company4', '456', 'deneme@gmail.com'),
-(7, 'deneme10', '123', 'deneme@gmail.com'),
-(8, 'deneme11', '123', 'deneme@gmail.com');
+INSERT INTO `companies` (`id`, `organization_name`, `tax_number`, `mail`, `register_type`) VALUES
+(1, 'deneme aş', '111111', 'deneme@gmail.com', 'Producer');
 
 -- --------------------------------------------------------
 
 --
--- Tablo için tablo yapısı `individuals`
+-- Tablo için tablo yapısı `fake_bank`
 --
 
-CREATE TABLE `individuals` (
-  `tckn` bigint(11) NOT NULL,
-  `name` text NOT NULL,
-  `surname` text NOT NULL,
-  `mail` text NOT NULL
+CREATE TABLE `fake_bank` (
+  `bank_id` bigint(11) NOT NULL,
+  `owner_id` int(11) NOT NULL,
+  `money` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Tablo döküm verisi `individuals`
+-- Tablo döküm verisi `fake_bank`
 --
 
-INSERT INTO `individuals` (`tckn`, `name`, `surname`, `mail`) VALUES
-(11111111111, 'Deneme2', 'Deneme2', '---@gmail.com'),
-(99999999999, 'Deneme', 'Deneme', '---@gmail.com');
+INSERT INTO `fake_bank` (`bank_id`, `owner_id`, `money`) VALUES
+(1, 1, 1000);
 
 --
 -- Dökümü yapılmış tablolar için indeksler
 --
+
+--
+-- Tablo için indeksler `certificates`
+--
+ALTER TABLE `certificates`
+  ADD PRIMARY KEY (`tuple_start_id`,`tuple_finish_id`);
 
 --
 -- Tablo için indeksler `companies`
@@ -80,10 +95,11 @@ ALTER TABLE `companies`
   ADD PRIMARY KEY (`id`);
 
 --
--- Tablo için indeksler `individuals`
+-- Tablo için indeksler `fake_bank`
 --
-ALTER TABLE `individuals`
-  ADD PRIMARY KEY (`tckn`);
+ALTER TABLE `fake_bank`
+  ADD PRIMARY KEY (`bank_id`),
+  ADD UNIQUE KEY `owner_id` (`owner_id`);
 
 --
 -- Dökümü yapılmış tablolar için AUTO_INCREMENT değeri
@@ -93,7 +109,13 @@ ALTER TABLE `individuals`
 -- Tablo için AUTO_INCREMENT değeri `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `fake_bank`
+--
+ALTER TABLE `fake_bank`
+  MODIFY `bank_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
