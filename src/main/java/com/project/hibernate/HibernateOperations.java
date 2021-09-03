@@ -26,6 +26,11 @@ public class HibernateOperations {
         factory.close();
     }
 
+    public static void beginTransactionAgainUsingCurrentSession(){
+        session = factory.getCurrentSession();
+        session.beginTransaction();
+    }
+
     public static void sessionCommit(){
         session.getTransaction().commit();
     }
@@ -36,6 +41,11 @@ public class HibernateOperations {
         sessionCommit();
         closeSessionFactory();
     }
+
+    public static void addNewObjectWithoutChangingCurrentSession(Object object){
+        session.save(object);
+    }
+
 
     public static void updateObject(Object object){ // Coming object should be updated.
         initSessionFactory(object);
@@ -58,6 +68,10 @@ public class HibernateOperations {
         closeSessionFactory();
     }
 
+    public static void deleteObjectWithoutClosingFactory(Object toRemove){
+        session.delete(toRemove);
+        sessionCommit();
+    }
     public static List<?> getAll(Object object) {
         initSessionFactory(object);
         List<?> data = null;

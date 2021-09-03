@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 02 Eyl 2021, 00:05:43
+-- Üretim Zamanı: 03 Eyl 2021, 23:03:42
 -- Sunucu sürümü: 10.4.20-MariaDB
 -- PHP Sürümü: 8.0.9
 
@@ -43,10 +43,10 @@ CREATE TABLE `certificates` (
 --
 
 INSERT INTO `certificates` (`tuple_start_id`, `tuple_finish_id`, `owner_id`, `number_of_certificates`, `register_month`, `register_year`, `expiration_month`, `expiration_year`) VALUES
-(1, 20, 1, 20, 9, 2021, 9, 2022),
-(21, 165, 1, 145, 9, 2021, 9, 2022),
-(166, 265, 1, 100, 9, 2021, 9, 2022),
-(266, 266, 1, 1, 9, 2021, 9, 2022);
+(1, 140, 1, 140, 9, 2021, 9, 2022),
+(141, 190, 3, 50, 9, 2021, 9, 2022),
+(191, 198, 2, 8, 9, 2021, 9, 2022),
+(199, 200, 1, 2, 9, 2021, 9, 2022);
 
 -- --------------------------------------------------------
 
@@ -67,7 +67,9 @@ CREATE TABLE `companies` (
 --
 
 INSERT INTO `companies` (`id`, `organization_name`, `tax_number`, `mail`, `register_type`) VALUES
-(1, 'company', '456', 'deneme@gmail.com', 'Producer');
+(1, 'company', '456', 'deneme@gmail.com', 'Producer'),
+(2, 'deneme aş2', '111111', 'deneme@gmail.com', 'Producer'),
+(3, 'company', '456', 'deneme@gmail.com', 'Producer');
 
 -- --------------------------------------------------------
 
@@ -86,7 +88,9 @@ CREATE TABLE `fake_bank` (
 --
 
 INSERT INTO `fake_bank` (`bank_id`, `owner_id`, `money`) VALUES
-(1, 1, 1000);
+(1, 1, 1000),
+(2, 2, 1000),
+(3, 3, 1000);
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -119,13 +123,13 @@ ALTER TABLE `fake_bank`
 -- Tablo için AUTO_INCREMENT değeri `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `fake_bank`
 --
 ALTER TABLE `fake_bank`
-  MODIFY `bank_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `bank_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
