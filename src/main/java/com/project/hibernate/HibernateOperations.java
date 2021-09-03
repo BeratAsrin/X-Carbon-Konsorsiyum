@@ -21,15 +21,25 @@ public class HibernateOperations {
         session.beginTransaction();
     }
 
-    private static void closeSessionFactory() {
+    public static void closeSessionFactory() {
         session.close();
         factory.close();
+    }
+
+    public static void sessionCommit(){
+        session.getTransaction().commit();
     }
 
     public static void addNewObject(Object object){
         initSessionFactory(object);
         session.save(object);
-        session.getTransaction().commit();
+        sessionCommit();
+        closeSessionFactory();
+    }
+
+    public static void updateObject(Object object){ // Coming object should be updated.
+        initSessionFactory(object);
+        sessionCommit();
         closeSessionFactory();
     }
 
@@ -44,7 +54,7 @@ public class HibernateOperations {
         initSessionFactory(object);
         Object toRemove = session.get(object.getClass(), primaryKey.intValue());
         session.delete(toRemove);
-        session.getTransaction().commit();
+        sessionCommit();
         closeSessionFactory();
     }
 
@@ -63,15 +73,8 @@ public class HibernateOperations {
         FakeBank toRemove = (FakeBank) session.createQuery(String.format("from FakeBank s where s.ownerId = %s",id))
                 .uniqueResult();
         session.delete(toRemove);
-        session.getTransaction().commit();
+        sessionCommit();
         closeSessionFactory();
-    }
-
-    public static long getLastFinishId(Certificate certificate){
-        initSessionFactory(certificate);
-        Certificate temp = (Certificate) session.createQuery("from Certificate ORDER BY tuple_finish_id DESC").setMaxResults(1).uniqueResult();
-        closeSessionFactory();
-        return temp.getTuppleFinishId();
     }
 
     public static String isTableEmpty(Object object){
@@ -83,6 +86,20 @@ public class HibernateOperations {
             toReturn = list.size() == 0 ? "EMPTY" : "NOT_EMPTY";
         }
         closeSessionFactory();
+        return toReturn;
+    }
+
+    public static long getLastFinishId(Certificate certificate){
+        initSessionFactory(certificate);
+        Certificate temp = (Certificate) session.createQuery("from Certificate ORDER BY tuple_finish_id DESC").setMaxResults(1).uniqueResult();
+        closeSessionFactory();
+        return temp.getTupleFinishId();
+    }
+
+    public static Certificate getCertificate(int from, Long tupleStartId){
+        // TODO NOTICE THAT SESSION IS OPENED BEFORE CALLING THIS METHOD
+        Certificate toReturn = (Certificate) session.createQuery(String.format("from Certificate c where c.ownerId = %s " +
+                "and c.tupleStartId = %s",from, tupleStartId)).uniqueResult();
         return toReturn;
     }
 

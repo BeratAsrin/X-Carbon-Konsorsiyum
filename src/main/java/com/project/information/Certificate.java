@@ -17,11 +17,11 @@ public class Certificate {
 
     @Id
     @Column(name = "tuple_start_id")
-    private long tuppleStartId;
+    private long tupleStartId;
 
     @Id
     @Column(name = "tuple_finish_id")
-    private long tuppleFinishId;
+    private long tupleFinishId;
 
     @Column(name = "owner_id")
     private int ownerId;
@@ -46,7 +46,7 @@ public class Certificate {
 // TODO https://stackoverflow.com/questions/41143913/sql-jpa-multiple-columns-as-primary-key
 class CompositeKey implements Serializable {
 
-    private long tuppleStartId;
-    private long tuppleFinishId;
+    private long tupleStartId;
+    private long tupleFinishId;
 
 }

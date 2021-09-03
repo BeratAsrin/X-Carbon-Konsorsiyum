@@ -2,10 +2,11 @@ package com.project.restservices;
 
 import com.project.hibernate.HibernateOperations;
 import com.project.information.Certificate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.archive.spi.AbstractArchiveDescriptor;
+import org.hibernate.cfg.Configuration;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -18,17 +19,19 @@ public class CertificateRestOperations {
     @PostMapping("/create")
     private void createNewCertificate(@RequestBody Certificate certificate){
 
-        // TODO JSON ownerId, numberOfCertificates içerecek.
+        /* TODO JSON ownerId, numberOfCertificates içerecek. ownerID frontend yapıldıktan sonra kaldırılacak ve
+            login ekranından alınacak.
+        */
         // TODO TRY CATCH ILE "ERROR" DÖNMEYI KONTROL ET !!!
         // TODO owner_id doğru mu diye kontrol et !!!
 
         if(HibernateOperations.isTableEmpty(new Certificate()) == "EMPTY"){
-            certificate.setTuppleStartId(1);
-            certificate.setTuppleFinishId(certificate.getTuppleStartId() + certificate.getNumberOfCertificates() - 1);
+            certificate.setTupleStartId(1);
+            certificate.setTupleFinishId(certificate.getTupleStartId() + certificate.getNumberOfCertificates() - 1);
         }
         else if(HibernateOperations.isTableEmpty(new Certificate()) == "NOT_EMPTY"){
-            certificate.setTuppleStartId(HibernateOperations.getLastFinishId(new Certificate()) + 1);
-            certificate.setTuppleFinishId(certificate.getTuppleStartId() + certificate.getNumberOfCertificates() - 1);
+            certificate.setTupleStartId(HibernateOperations.getLastFinishId(new Certificate()) + 1);
+            certificate.setTupleFinishId(certificate.getTupleStartId() + certificate.getNumberOfCertificates() - 1);
         }
         else{
         }
@@ -41,6 +44,26 @@ public class CertificateRestOperations {
 
         HibernateOperations.addNewObject(certificate);
 
+    }
+
+    @GetMapping("/transfer/{from},{to},{tupleStartId},{transferAmount}")
+    private Certificate transferCertificate(@PathVariable int from,
+                                     @PathVariable int to,
+                                     @PathVariable Long tupleStartId,
+                                     @PathVariable Long transferAmount){
+
+        HibernateOperations.initSessionFactory(new Certificate());
+        Certificate fromTuple = HibernateOperations.getCertificate(from, tupleStartId);
+
+        if(transferAmount > fromTuple.getNumberOfCertificates()){
+
+        }
+        else if(transferAmount == fromTuple.getNumberOfCertificates()){
+            fromTuple.setOwnerId(to);
+            HibernateOperations.sessionCommit();
+        }
+        HibernateOperations.closeSessionFactory();
+        return fromTuple;
     }
 
 
