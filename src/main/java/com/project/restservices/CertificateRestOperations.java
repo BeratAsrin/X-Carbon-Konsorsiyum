@@ -11,6 +11,7 @@ import java.util.List;
 @RequestMapping("/certificate")
 public class CertificateRestOperations {
 
+    @CrossOrigin
     @PostMapping("/create")
     private void createNewCertificate(@RequestBody Certificate certificate){
 
@@ -40,6 +41,7 @@ public class CertificateRestOperations {
 
     }
 
+    @CrossOrigin
     @PostMapping("/transfer/{from},{to},{tupleStartId},{transferAmount}")
     private void transferCertificate(@PathVariable int from,
                                      @PathVariable int to,

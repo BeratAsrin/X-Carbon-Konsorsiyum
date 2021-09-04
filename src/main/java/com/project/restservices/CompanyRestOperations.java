@@ -18,16 +18,19 @@ public class CompanyRestOperations {
         HibernateOperations.addNewObject(new FakeBank(company.getId(),1000));
     }
 
+    @CrossOrigin
     @GetMapping("/get/{id}")
     private Company getCompanyById(@PathVariable Integer id){
         return (Company) HibernateOperations.getObjectById(new Company(), id);
     }
 
+    @CrossOrigin
     @GetMapping("/getall")
     private List<?> getAllCompanies(){
         return HibernateOperations.getAll(new Company());
     }
 
+    @CrossOrigin
     @DeleteMapping ("/delete/{id}")
     private void deleteCompanyById(@PathVariable Integer id){
         HibernateOperations.deleteBankAccount(new FakeBank(), id);
