@@ -29,11 +29,15 @@ public class Company {
     @Column(name = "register_type")
     private String registerType; // Producer || Trader
 
-    public Company(String organizationName, String taxNumber, String mail, String registerType) {
+    @Column(name = "password")
+    private String password;
+
+    public Company(String organizationName, String taxNumber, String mail, String registerType, String password) {
         this.organizationName = organizationName;
         this.taxNumber = taxNumber;
         this.mail = mail;
         this.registerType = registerType;
+        this.password = password;
     }
 
 }
