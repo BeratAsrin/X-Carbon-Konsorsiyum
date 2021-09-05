@@ -13,9 +13,15 @@ public class CompanyRestOperations {
 
     @CrossOrigin
     @PostMapping("/register")
-    private void registerCompany(@RequestBody Company company){
-        HibernateOperations.addNewObject(company);
-        HibernateOperations.addNewObject(new FakeBank(company.getId(),1000));
+    private String registerCompany(@RequestBody Company company){
+        try {
+            HibernateOperations.addNewObject(company);
+            HibernateOperations.addNewObject(new FakeBank(company.getId(),1000));
+        }catch (Exception error){
+            error.getStackTrace();
+            return "Company could not be registered.";
+        }
+        return "Company is Registered.";
     }
 
     @CrossOrigin
