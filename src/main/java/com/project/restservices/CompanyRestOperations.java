@@ -37,10 +37,19 @@ public class CompanyRestOperations {
     }
 
     @CrossOrigin
-    @DeleteMapping ("/delete/{id}")
+    @DeleteMapping ("/delete/id={id}")
     private void deleteCompanyById(@PathVariable Integer id){
         HibernateOperations.deleteBankAccount(new FakeBank(), id);
         HibernateOperations.deleteObjectById(new Company(), id);
+    }
+
+    @CrossOrigin
+    @DeleteMapping ("/delete/name={name}")
+    // localhost:8080/company/delete/name='aaaa' ==> format should be like this
+    private void deleteCompanyById(@PathVariable String name){
+        Company company = HibernateOperations.getCompanyByName(name);
+        HibernateOperations.deleteBankAccount(new FakeBank(), company.getId());
+        HibernateOperations.deleteObjectById(new Company(), company.getId());
     }
 
 }

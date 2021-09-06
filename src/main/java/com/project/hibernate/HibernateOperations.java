@@ -117,6 +117,14 @@ public class HibernateOperations {
         return toReturn;
     }
 
+    public static Company getCompanyByName(String name){
+        initSessionFactory(new Company());
+        Company company = (Company) session.createQuery(String.format("from Company s where s.organizationName = %s",name)).
+                setMaxResults(1).uniqueResult();
+        closeSessionFactory();
+        return company;
+    }
+
     /* Deprecated
     public static int getLastId(Object object){
         initSessionFactory(object);
