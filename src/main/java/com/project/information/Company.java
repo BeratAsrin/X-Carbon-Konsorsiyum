@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Data
@@ -21,7 +22,7 @@ public class Company {
     private String organizationName;
 
     @Column(name = "tax_number")
-    private String taxNumber;
+    private long taxNumber;
 
     @Column(name = "mail")
     private String mail;
@@ -32,7 +33,7 @@ public class Company {
     @Column(name = "password")
     private String password;
 
-    public Company(String organizationName, String taxNumber, String mail, String registerType, String password) {
+    public Company(String organizationName, long taxNumber, String mail, String registerType, String password) {
         this.organizationName = organizationName;
         this.taxNumber = taxNumber;
         this.mail = mail;

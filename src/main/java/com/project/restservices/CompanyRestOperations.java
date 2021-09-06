@@ -15,6 +15,9 @@ public class CompanyRestOperations {
     @PostMapping("/register")
     private String registerCompany(@RequestBody Company company){
         try {
+            if(HibernateOperations.checkIfTaxNumberExists(company.getTaxNumber())){
+                return "Tax number is already exists in database. Try another.";
+            }
             HibernateOperations.addNewObject(company);
             HibernateOperations.addNewObject(new FakeBank(company.getId(),1000));
         }catch (Exception error){
@@ -25,9 +28,21 @@ public class CompanyRestOperations {
     }
 
     @CrossOrigin
-    @GetMapping("/get/{id}")
+    @GetMapping("/get/id={id}")
     private Company getCompanyById(@PathVariable Integer id){
         return (Company) HibernateOperations.getObjectById(new Company(), id);
+    }
+
+    @CrossOrigin
+    @GetMapping("/get/taxnumber={taxNumber}")
+    private Company getCompanyByTaxNumber(@PathVariable Long taxNumber){
+        return HibernateOperations.getCompanyByTaxNumber(taxNumber);
+    }
+
+    @CrossOrigin
+    @GetMapping("/get/name={name}")
+    private Company getCompanyById(@PathVariable String name){
+        return HibernateOperations.getCompanyByName(name);
     }
 
     @CrossOrigin

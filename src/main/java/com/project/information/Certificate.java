@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@IdClass(CompositeKey.class)
+@IdClass(CertificateCompositeKey.class)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -44,7 +44,7 @@ public class Certificate {
 }
 
 // TODO https://stackoverflow.com/questions/41143913/sql-jpa-multiple-columns-as-primary-key
-class CompositeKey implements Serializable {
+class CertificateCompositeKey implements Serializable {
 
     private long tupleStartId;
     private long tupleFinishId;

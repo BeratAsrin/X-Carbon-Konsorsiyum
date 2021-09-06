@@ -125,6 +125,25 @@ public class HibernateOperations {
         return company;
     }
 
+    public static Company getCompanyByTaxNumber(Long taxNumber){
+        initSessionFactory(new Company());
+        Company company = (Company) session.createQuery(String.format("from Company s where s.taxNumber = %s",taxNumber.longValue())).
+                setMaxResults(1).uniqueResult();
+        closeSessionFactory();
+        return company;
+    }
+
+    public static boolean checkIfTaxNumberExists(long taxNumber){
+        initSessionFactory(new Company());
+        Company company = (Company) session.createQuery(String.format("from Company c where c.taxNumber = %s",taxNumber)).
+                setMaxResults(1).uniqueResult();
+        closeSessionFactory();
+        if(company == null){
+            return false;
+        }
+        return true;
+    }
+
     /* Deprecated
     public static int getLastId(Object object){
         initSessionFactory(object);
