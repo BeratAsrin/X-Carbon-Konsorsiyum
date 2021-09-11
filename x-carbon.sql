@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 05 Eyl 2021, 12:16:52
+-- Üretim Zamanı: 11 Eyl 2021, 23:50:22
 -- Sunucu sürümü: 10.4.20-MariaDB
 -- PHP Sürümü: 8.0.9
 
@@ -24,6 +24,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Tablo için tablo yapısı `admins`
+--
+
+CREATE TABLE `admins` (
+  `username` text NOT NULL,
+  `password` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Tablo döküm verisi `admins`
+--
+
+INSERT INTO `admins` (`username`, `password`) VALUES
+('admin', 'admin');
+
+-- --------------------------------------------------------
+
+--
 -- Tablo için tablo yapısı `certificates`
 --
 
@@ -38,19 +56,6 @@ CREATE TABLE `certificates` (
   `expiration_year` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Tablo döküm verisi `certificates`
---
-
-INSERT INTO `certificates` (`tuple_start_id`, `tuple_finish_id`, `owner_id`, `number_of_certificates`, `register_month`, `register_year`, `expiration_month`, `expiration_year`) VALUES
-(1, 140, 1, 140, 9, 2021, 9, 2022),
-(141, 190, 3, 50, 9, 2021, 9, 2022),
-(191, 198, 2, 8, 9, 2021, 9, 2022),
-(199, 200, 1, 2, 9, 2021, 9, 2022),
-(201, 1000, 4, 800, 9, 2021, 9, 2022),
-(1001, 1190, 2, 190, 9, 2021, 9, 2022),
-(1191, 1200, 1, 10, 9, 2021, 9, 2022);
-
 -- --------------------------------------------------------
 
 --
@@ -60,7 +65,7 @@ INSERT INTO `certificates` (`tuple_start_id`, `tuple_finish_id`, `owner_id`, `nu
 CREATE TABLE `companies` (
   `id` int(11) NOT NULL,
   `organization_name` text NOT NULL,
-  `tax_number` text NOT NULL,
+  `tax_number` bigint(20) NOT NULL,
   `mail` text NOT NULL,
   `register_type` text NOT NULL,
   `password` text NOT NULL
@@ -71,19 +76,18 @@ CREATE TABLE `companies` (
 --
 
 INSERT INTO `companies` (`id`, `organization_name`, `tax_number`, `mail`, `register_type`, `password`) VALUES
-(1, 'company', '456', 'deneme@gmail.com', 'Producer', '123'),
-(2, 'deneme aş2', '111111', 'deneme@gmail.com', 'Producer', '12345'),
-(3, 'company', '456', 'deneme@gmail.com', 'Producer', 'afAGSDG'),
-(4, 'company', '456', 'deneme@gmail.com', 'Producer', '3423'),
-(5, 'companydenemeee', '456', 'deneme@gmail.com', 'Producer', '123'),
-(6, 'asgas', 'asdgsa', 'sadgsa', 'Producer', 'ggsdfgsd'),
-(7, '1', '1', '1', 'Producer', '1'),
-(8, '123', '1341', '151', 'Producer', '222'),
-(9, '1223', '5252', 'adgdsa', 'Producer', 'sadgsad'),
-(10, 'sagsa', 'asdgs', 'asgsa', 'Trader', 'asdgsa'),
-(11, 'asgs', 'asdgdds', 'asdgsa', 'Producer', 'asdgsa'),
-(12, '1111', '1111', '1111', 'Trader', '111'),
-(13, '1111', '1111', 'sdgsda', 'Trader', '111');
+(4, 'sagsad', 11111111114, 'sadgasd@asdgasd', 'Producer', 'asdgsa'),
+(5, 'sdagass', 11111111132, 'asgfas@gasmf.com', 'Trader', 'sdagas'),
+(6, 'sadgsagsdagsda', 114241, 'asdgasdg@asdgsad', 'Producer', 'sadgsdag'),
+(7, 'sdagasdgasd', 142421124, 'asdlfjsdajkgl@asdgjnsadjk', 'Producer', 'sadgjasgksdja'),
+(8, 'sdgsdlajgnasdkljg', 214412, 'sadgnsdlagjn@asgjasndjg', 'Producer', 'sdgkmsadl'),
+(9, 'sadgasdgsdagljngnksdj', 124412421, 'sadgsad@asdgsda', 'Producer', 'asldkgnslda'),
+(10, 'dsgljnsdgajklsngkjsan', 1142412521, 'sdlgjnsgdajl@asdkgljsndajk', 'Producer', ' sasdgdsag'),
+(11, 'sdgsadasgljksdngl', 2142141, 'asdlgsad@sdagsad', 'Producer', 'asdgasd'),
+(12, 'sdgasdgasdg', 14214, '@', 'Trader', 'asdgsad'),
+(13, 'sadasdgdsg', 14112412, 'asdgasdgds@asgs', 'Producer', 'sdfgasdgs'),
+(14, 'sadgşksdngklsadnlk', 41412141, 'sldgkasdklgs@xn--sslhkasdlkgasd-4zc', 'Producer', 'asdgksnda'),
+(15, 'denemekeee', 121242141, 'denemeekee@gmail.com', 'Producer', 'gslknsgkgknşsa');
 
 -- --------------------------------------------------------
 
@@ -102,9 +106,6 @@ CREATE TABLE `fake_bank` (
 --
 
 INSERT INTO `fake_bank` (`bank_id`, `owner_id`, `money`) VALUES
-(1, 1, 1000),
-(2, 2, 1000),
-(3, 3, 1000),
 (4, 4, 1000),
 (5, 5, 1000),
 (6, 6, 1000),
@@ -114,11 +115,19 @@ INSERT INTO `fake_bank` (`bank_id`, `owner_id`, `money`) VALUES
 (10, 10, 1000),
 (11, 11, 1000),
 (12, 12, 1000),
-(13, 13, 1000);
+(13, 13, 1000),
+(14, 14, 1000),
+(15, 15, 1000);
 
 --
 -- Dökümü yapılmış tablolar için indeksler
 --
+
+--
+-- Tablo için indeksler `admins`
+--
+ALTER TABLE `admins`
+  ADD UNIQUE KEY `username` (`username`) USING HASH;
 
 --
 -- Tablo için indeksler `certificates`
@@ -147,13 +156,13 @@ ALTER TABLE `fake_bank`
 -- Tablo için AUTO_INCREMENT değeri `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `fake_bank`
 --
 ALTER TABLE `fake_bank`
-  MODIFY `bank_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `bank_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
