@@ -1,5 +1,6 @@
 package com.project.hibernate;
 
+import com.project.information.Admin;
 import com.project.information.Certificate;
 import com.project.information.Company;
 
@@ -142,6 +143,16 @@ public class HibernateOperations {
             return false;
         }
         return true;
+    }
+
+    public static Admin getAdminByUsername(String username){
+        initSessionFactory(new Admin());
+        System.out.println("3");
+        Admin admin = (Admin) session.createQuery(String.format("FROM Admin A WHERE A.username = '%s'",username)).
+                setMaxResults(1).uniqueResult();
+        System.out.println("4");
+        closeSessionFactory();
+        return admin;
     }
 
     /* Deprecated
