@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 11 Eyl 2021, 23:50:22
+-- Üretim Zamanı: 13 Eyl 2021, 12:28:44
 -- Sunucu sürümü: 10.4.20-MariaDB
 -- PHP Sürümü: 8.0.9
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
+  `id` int(11) NOT NULL,
   `username` text NOT NULL,
   `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -36,8 +37,8 @@ CREATE TABLE `admins` (
 -- Tablo döküm verisi `admins`
 --
 
-INSERT INTO `admins` (`username`, `password`) VALUES
-('admin', 'admin');
+INSERT INTO `admins` (`id`, `username`, `password`) VALUES
+(1, 'admin', 'admin');
 
 -- --------------------------------------------------------
 
@@ -87,7 +88,9 @@ INSERT INTO `companies` (`id`, `organization_name`, `tax_number`, `mail`, `regis
 (12, 'sdgasdgasdg', 14214, '@', 'Trader', 'asdgsad'),
 (13, 'sadasdgdsg', 14112412, 'asdgasdgds@asgs', 'Producer', 'sdfgasdgs'),
 (14, 'sadgşksdngklsadnlk', 41412141, 'sldgkasdklgs@xn--sslhkasdlkgasd-4zc', 'Producer', 'asdgksnda'),
-(15, 'denemekeee', 121242141, 'denemeekee@gmail.com', 'Producer', 'gslknsgkgknşsa');
+(15, 'denemekeee', 121242141, 'denemeekee@gmail.com', 'Producer', 'gslknsgkgknşsa'),
+(16, '1', 1, '1', 'Producer', '1'),
+(17, '2', 2, '2@2', 'Producer', '2');
 
 -- --------------------------------------------------------
 
@@ -117,7 +120,8 @@ INSERT INTO `fake_bank` (`bank_id`, `owner_id`, `money`) VALUES
 (12, 12, 1000),
 (13, 13, 1000),
 (14, 14, 1000),
-(15, 15, 1000);
+(15, 15, 1000),
+(16, 17, 1000);
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -127,7 +131,7 @@ INSERT INTO `fake_bank` (`bank_id`, `owner_id`, `money`) VALUES
 -- Tablo için indeksler `admins`
 --
 ALTER TABLE `admins`
-  ADD UNIQUE KEY `username` (`username`) USING HASH;
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Tablo için indeksler `certificates`
@@ -153,16 +157,22 @@ ALTER TABLE `fake_bank`
 --
 
 --
+-- Tablo için AUTO_INCREMENT değeri `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- Tablo için AUTO_INCREMENT değeri `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `fake_bank`
 --
 ALTER TABLE `fake_bank`
-  MODIFY `bank_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `bank_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
