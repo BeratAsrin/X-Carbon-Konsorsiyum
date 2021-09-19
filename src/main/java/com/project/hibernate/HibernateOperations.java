@@ -147,29 +147,18 @@ public class HibernateOperations {
 
     public static Admin getAdminByUsername(String username){
         initSessionFactory(new Admin());
-        System.out.println("3");
         Admin admin = (Admin) session.createQuery(String.format("FROM Admin A WHERE A.username = '%s'",username)).
                 setMaxResults(1).uniqueResult();
-        System.out.println("4");
         closeSessionFactory();
         return admin;
     }
 
-    /* Deprecated
-    public static int getLastId(Object object){
-        initSessionFactory(object);
-        Object temp = null;
-        int last = 0;
-        if(object.getClass() == Company.class){
-            try{
-                temp = session.createQuery("from Company ORDER BY id DESC").setMaxResults(1).uniqueResult();
-                last = ((Company)temp).getId();
-            }catch (NullPointerException error){
-                last = 0; // !!! Last remains zero.
-            }
-        }
+    public static List<Certificate> getAllCertificatesOfCompany(Long taxNumber){
+        Company company = getCompanyByTaxNumber(taxNumber);
+        initSessionFactory(new Certificate());
+        List<Certificate> certificates = session.createQuery(String.format("from Certificate c where c.ownerId=%d", company.getId())).list();
         closeSessionFactory();
-        return last;
+        return certificates;
     }
-    */
+
 }

@@ -2,6 +2,7 @@ package com.project.restservices;
 
 import com.project.hibernate.HibernateOperations;
 import com.project.information.Certificate;
+import com.project.information.CertificateCreateRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -14,11 +15,6 @@ public class CertificateRestOperations {
     @CrossOrigin
     @PostMapping("/create")
     private void createNewCertificate(@RequestBody Certificate certificate){
-
-        /* TODO JSON ownerId, numberOfCertificates içerecek. ownerID frontend yapıldıktan sonra kaldırılacak ve
-            login ekranından alınacak.
-        */
-        // TODO TRY CATCH ILE "ERROR" DÖNMEYI KONTROL ET !!!
 
         if(HibernateOperations.isTableEmpty(new Certificate()) == "EMPTY"){
             certificate.setTupleStartId(1);
@@ -92,5 +88,22 @@ public class CertificateRestOperations {
         HibernateOperations.closeSessionFactory();
     }
 
+    @CrossOrigin
+    @GetMapping("/get/taxnumber={taxNumber}")
+    private List<Certificate> getCertificatesUsingTaxNumber(@PathVariable Long taxNumber){
+        return HibernateOperations.getAllCertificatesOfCompany(taxNumber);
 
+    }
+
+    @CrossOrigin
+    @PostMapping("/request")
+    private boolean createCertificateRequest(@RequestBody CertificateCreateRequest request){
+        try {
+            HibernateOperations.addNewObject(request);
+        }catch (Exception error){
+            error.getStackTrace();
+            return false;
+        }
+        return true;
+    }
 }
