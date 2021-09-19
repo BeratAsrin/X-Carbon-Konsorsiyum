@@ -1,10 +1,7 @@
 package com.project.hibernate;
 
-import com.project.information.Admin;
-import com.project.information.Certificate;
-import com.project.information.Company;
+import com.project.information.*;
 
-import com.project.information.FakeBank;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -78,6 +75,9 @@ public class HibernateOperations {
         List<?> data = null;
         if(object.getClass() == Company.class){
             data = session.createQuery("from Company").list();
+        }
+        else if(object.getClass() == CertificateRequest.class){
+            data = session.createQuery("from CertificateRequest").list();
         }
         closeSessionFactory();
         return data;
@@ -157,6 +157,13 @@ public class HibernateOperations {
         Company company = getCompanyByTaxNumber(taxNumber);
         initSessionFactory(new Certificate());
         List<Certificate> certificates = session.createQuery(String.format("from Certificate c where c.ownerId=%d", company.getId())).list();
+        closeSessionFactory();
+        return certificates;
+    }
+
+    public static List<?> getAllRequestsOfCompany(Long taxNumber){
+        initSessionFactory(new CertificateRequest());
+        List<?> certificates = session.createQuery(String.format("from CertificateRequest c where c.ownerTaxNumber=%s", taxNumber.longValue())).list();
         closeSessionFactory();
         return certificates;
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 19 Eyl 2021, 02:20:30
+-- Üretim Zamanı: 19 Eyl 2021, 17:48:39
 -- Sunucu sürümü: 10.4.20-MariaDB
 -- PHP Sürümü: 8.0.9
 
@@ -75,20 +75,19 @@ INSERT INTO `certificates` (`tuple_start_id`, `tuple_finish_id`, `owner_id`, `nu
 CREATE TABLE `certificate_requests` (
   `id` int(11) NOT NULL,
   `owner_tax_number` bigint(20) NOT NULL,
-  `number_of_certificates` int(11) NOT NULL
+  `owner_id` int(11) NOT NULL,
+  `number_of_certificates` int(11) NOT NULL,
+  `status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Tablo döküm verisi `certificate_requests`
 --
 
-INSERT INTO `certificate_requests` (`id`, `owner_tax_number`, `number_of_certificates`) VALUES
-(1, 1, 12),
-(2, 1, 300),
-(3, 1, 124214),
-(4, 1, 12),
-(5, 1, 24),
-(6, 1, 141);
+INSERT INTO `certificate_requests` (`id`, `owner_tax_number`, `owner_id`, `number_of_certificates`, `status`) VALUES
+(11, 1, 16, 1412, 'Waiting'),
+(12, 1, 16, 412, 'Waiting'),
+(13, 1, 16, 4222, 'Waiting');
 
 -- --------------------------------------------------------
 
@@ -221,7 +220,7 @@ ALTER TABLE `admins`
 -- Tablo için AUTO_INCREMENT değeri `certificate_requests`
 --
 ALTER TABLE `certificate_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `companies`

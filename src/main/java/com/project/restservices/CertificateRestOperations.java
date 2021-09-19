@@ -2,7 +2,8 @@ package com.project.restservices;
 
 import com.project.hibernate.HibernateOperations;
 import com.project.information.Certificate;
-import com.project.information.CertificateCreateRequest;
+import com.project.information.CertificateRequest;
+import com.project.information.Company;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -97,13 +98,46 @@ public class CertificateRestOperations {
 
     @CrossOrigin
     @PostMapping("/request")
-    private boolean createCertificateRequest(@RequestBody CertificateCreateRequest request){
+    private boolean createCertificateRequest(@RequestBody CertificateRequest request){
         try {
+            Company company = HibernateOperations.getCompanyByTaxNumber(request.getOwnerTaxNumber());
+            request.setOwnerId(company.getId());
+            request.setStatus("Waiting");
             HibernateOperations.addNewObject(request);
         }catch (Exception error){
             error.getStackTrace();
             return false;
         }
         return true;
+    }
+
+    @CrossOrigin
+    @GetMapping("/get/requestlist")
+    private List<?> getRequests(){
+        List<?> requests = null;
+        try{
+            requests = HibernateOperations.getAll(new CertificateRequest());
+        }catch (Exception error){
+            // Sonra catch bloğunu doldur.
+        }
+        return requests;
+    }
+
+    @CrossOrigin
+    @GetMapping("/get/requests/taxnumber={taxNumber}")
+    private List<?> getRequestsOfCompany(@PathVariable Long taxNumber){
+        List<?> requests = null;
+        try{
+            requests = HibernateOperations.getAllRequestsOfCompany(taxNumber);
+        }catch (Exception error){
+            // Sonra catch bloğunu doldur.
+        }
+        return requests;
+    }
+
+    @CrossOrigin
+    @PostMapping("/status={status}")
+    private boolean changeStatusOfRequest(@PathVariable String status){
+        return false;
     }
 }
